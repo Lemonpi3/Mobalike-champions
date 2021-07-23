@@ -29,15 +29,17 @@ public class CharecterBase : MonoBehaviour
     {
         gameObject.name = characterName;
         LoadAbilities();
-        //ScaleIndicators();
+        playerUI.ScaleIndicators(spells);
     }
 
     private void Update()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        position = TrackMousePos();
         CoolDownTrack();
 
         if(Input.GetKeyDown(KeyCode.Alpha1)){
+            Debug.Log(spellIndicator[0].enabled);
             ShowSpellIndicator(0);
             if(Input.GetMouseButtonDown(0)){
                 Ability1();
@@ -69,7 +71,7 @@ public class CharecterBase : MonoBehaviour
             }
         }
         
-        //RotateSkillshotIndicator(selectedSpell);
+        RotateSkillshotIndicator(selectedSpell);
     }
 
     public virtual void Ability1()
@@ -147,68 +149,46 @@ public class CharecterBase : MonoBehaviour
             }
         }
     }
+
     public void DisableOtherIndicators(int index)
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < spells.Length; i++)
         {
-            if (i != index)
+            if (i != index && spellIndicator[i] != null)
             {
                 spellIndicator[i].enabled = false;
-                spellRangeIndicator[i].enabled = false;
+
+                if(spellRangeIndicator[i] != null){
+                    spellRangeIndicator[i].enabled = false;
+                }
             }
         }
     }
+
     void DisableIndicator(int index)
     {
         spellIndicator[index].enabled = false;
         spellRangeIndicator[index].enabled = false;
     }
+
     void LoadAbilities()
     {
         playerUI.LoadCharecterIcons(spells);
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < spells.Length; i++)
         {
+            Debug.Log("loaded" + i);
             coolDown[i] = spells[i].coolDown;
             maxRange[i] = spells[i].range;
-            //spellIndicator[i].sprite = spells[i].spellIndicator;
-            //spellRangeIndicator[i].sprite = spells[i].indicatorRangeCircle;
-            // AbilityBase.Instance.LoadAbilities(i, iconShaded[i], coolDown[i], spellIndicator[i],  spellRangeIndicator[i],skillShotSpawnpoint[i]);
-            // spellIndicator[i].enabled = false;
-            // spellRangeIndicator[i].enabled = false;
+            spellIndicator[i] = playerUI.abilityIndicators[i];
+            spellRangeIndicator[i] = playerUI.abilityRangeIndicators[i];
             icon[i] = playerUI.spellUI.abilityIconsFull[i];
             iconShaded[i] = playerUI.spellUI.abilityIconsShaded[i];
         }
         Debug.Log("Loaded Abilities!");
     }
 
-    public void ScaleIndicators()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            switch (spells[i].spellType)
-            {
-                case SpellType.Skillshot:
-                    spellIndicator[i].GetComponentInParent<Canvas>().transform.localScale = new Vector3(spells[i].radius, 1,spells[i].range/2);
-                    break;
-                case SpellType.TargetCircle:
-                    spellIndicator[i].GetComponentInParent<Canvas>().transform.localScale = new Vector3(spells[i].radius, 1, spells[i].radius);
-                    spellRangeIndicator[i].GetComponentInParent<Canvas>().transform.localScale = new Vector3(maxRange[i], 1, maxRange[i]);
-                    break;
-                case SpellType.Self:
-                    spellIndicator[i].GetComponentInParent<Canvas>().transform.localScale = new Vector3(spells[i].radius, 1, spells[i].radius);
-                    break;
-                case SpellType.Cone:
-                    //Scalecone
-                    break;
-                case SpellType.AoEonCharecter:
-                    spellIndicator[i].GetComponentInParent<Canvas>().transform.localScale = new Vector3(spells[i].radius, 1, spells[i].radius);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
+    
 
     public Vector3 TrackMousePos(){
         if(Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Ground")))
@@ -240,11 +220,11 @@ public class CharecterBase : MonoBehaviour
     }
 
     public void RotateSkillshotIndicator(int abilityIndex){
+        
         if(spellIndicator[abilityIndex].enabled==true){
-            Canvas canvas = spellIndicator[selectedSpell].GetComponentInParent<Canvas>();
-            Quaternion transRot = Quaternion.LookRotation(position - transform.position);
-            transRot.eulerAngles = new Vector3(0, transRot.eulerAngles.y, transRot.eulerAngles.z);
-            canvas.transform.rotation = Quaternion.Lerp(transRot, canvas.transform.rotation, 0f);
+            Quaternion transRot = Quaternion.LookRotation(position - transform.position + new Vector3(0.0001f,0.0001f,0.0001f));
+            transRot.eulerAngles = new Vector3(0, 0, transRot.eulerAngles.z);
+            spellIndicator[abilityIndex].rectTransform.rotation = Quaternion.Lerp(transRot, spellIndicator[abilityIndex].rectTransform.rotation, 0f);
         }
     }
 }

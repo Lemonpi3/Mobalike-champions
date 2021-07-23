@@ -30,8 +30,8 @@ public class Spell : ScriptableObject {
     }
     //Icons and proyectile
     public Sprite icon;
-    public Image spellIndicator;
-    public Image rangeIndicator;    
+    public Sprite spellIndicator;
+    public Sprite rangeIndicator;    
 
     public GameObject proyectile;
 }

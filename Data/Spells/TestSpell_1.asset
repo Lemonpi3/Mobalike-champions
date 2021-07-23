@@ -29,6 +29,6 @@ MonoBehaviour:
   - 100
   - 150
   icon: {fileID: 21300000, guid: 885cdd72b4fa16846a8b308fa65e369f, type: 3}
-  spellIndicator: {fileID: 0}
+  spellIndicator: {fileID: 21300000, guid: 994319f6bce26ff4298dd815ef68e8bf, type: 3}
   rangeIndicator: {fileID: 0}
   proyectile: {fileID: 0}
