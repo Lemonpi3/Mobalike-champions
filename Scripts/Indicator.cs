@@ -26,7 +26,7 @@ public class Indicator : MonoBehaviour
     /// <summary>
     /// For Skillshot/Cone indicators, rotates the indicator relative to mouse position using the main indicator GameObject as pivot
     ///</summary>
-    public void RotateIndicator(Vector3 mousePosition){
+    public void RotateIndicator(){
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Ground")))

@@ -30,4 +30,4 @@ MonoBehaviour:
   - 150
   icon: {fileID: 21300000, guid: 885cdd72b4fa16846a8b308fa65e369f, type: 3}
   indicator: {fileID: 3069539502995328450, guid: 69800b7a3b3009047b552da87811a12c, type: 3}
-  proyectile: {fileID: 0}
+  proyectile: {fileID: 2468547926643074773, guid: a6c501755f9594f46b5f8234ada6e063, type: 3}

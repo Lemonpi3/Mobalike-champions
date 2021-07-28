@@ -5,18 +5,20 @@ using UnityEngine.UI;
 
 public class CharecterBase : MonoBehaviour
 {
+    [Header("Charecter name, stats , spells")]
+
     public string characterName = "DefaultCharecter";
+    public CharecterStats charecterStats;
+    public Spell[] spells;
+
+    [Header("Set up things")]
+    public PlayerUI playerUI;
     public Transform UI;
     public Transform indicatorsParent;
+    public Transform spellSpawnpoint;
+    public Transform particlesParent;
 
-    public CharecterStats charecterStats;
-    public PlayerUI playerUI;
-    //Spell stuff
-    public Spell[] spells;
-    int selectedSpell;
-    
-
-    public Indicator[] indicatorsSpell = new Indicator[4];
+    [HideInInspector] public Indicator[] indicatorsSpell = new Indicator[4];
     [HideInInspector] public Image[] iconShaded = new Image[4];
     [HideInInspector] public Image[] icon = new Image[4];
     [HideInInspector] public float[] coolDown = new float[4];
@@ -28,7 +30,6 @@ public class CharecterBase : MonoBehaviour
     
     void Start()
     {
-        Debug.Log("Default charecter Ability 1");
         LoadAbilities();
         gameObject.name = characterName;
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -59,7 +60,7 @@ public class CharecterBase : MonoBehaviour
     /// </summary>
     public virtual void PassiveAbility()
     {
-        
+        Debug.Log("Default charecter PassiveAbility");
     }
 
     void CoolDownTrack()
@@ -129,17 +130,13 @@ public class CharecterBase : MonoBehaviour
     void LoadAbilities()
     {
         playerUI.LoadCharecterIcons(spells);
-            
         
         for (int i = 0; i < spells.Length; i++)
         {
-            Debug.Log("indicator array:"+ indicatorsSpell.Length +"item" + i);
             indicatorsSpell[i] = spells[i].LoadIndicator(indicatorsParent);
             coolDown[i] = spells[i].coolDown;
             icon[i] = playerUI.spellUI.abilityIconsFull[i];
             iconShaded[i] = playerUI.spellUI.abilityIconsShaded[i];
-            Debug.Log("loaded:" + i );
-
         }
         Debug.Log("Loaded Abilities!");
     }
@@ -156,7 +153,6 @@ public class CharecterBase : MonoBehaviour
     public void ShowSpellIndicator(int abilityIndex){
         if (isCoolDown[abilityIndex] == false && charecterStats.manaCurrent >= spells[abilityIndex].manaCost)
         {
-            selectedSpell = abilityIndex;
             indicatorsSpell[abilityIndex].gameObject.SetActive(true);
             DisableOtherIndicators(abilityIndex);
         }

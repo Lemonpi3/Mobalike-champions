@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharecterStats : MonoBehaviour
 {
     [Header("Charecter Stats")]
+    public string team = "Neutral";
     public float healthMax = 100;
     public float healthCurrent = 100;
     public float healthRegen = 1;
@@ -15,6 +16,7 @@ public class CharecterStats : MonoBehaviour
 
     public TypeOfAttack typeOfAttack;
     public float attackRange = 3; // ~3 melee , 4+ ranged
+    public GameObject autoAttackproyectile;
 
     public float attackDamage = 5;
     public float spellPower = 0;
@@ -33,6 +35,7 @@ public class CharecterStats : MonoBehaviour
     public float spellPowerOnLevelUp = 10;
     
     void Start(){
+        gameObject.layer = LayerMask.NameToLayer(team);
         UpdateStats();
     }
 
