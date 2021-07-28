@@ -25,15 +25,22 @@ public class Spell : ScriptableObject {
     public float[] damageRank;
 
     
+    
+    //Icons and proyectile
+    public Sprite icon;
+    public GameObject indicator;    
+    public GameObject proyectile;
+
     public float CalculateFinalDamage(CharecterStats casterStats){
         return(damageBase + damageRank[spellRankCurrent] + casterStats.attackDamage * attackScaling + casterStats.spellPower * spellPowerScaling);
     }
-    //Icons and proyectile
-    public Sprite icon;
-    public Sprite spellIndicator;
-    public Sprite rangeIndicator;    
 
-    public GameObject proyectile;
+    public Indicator LoadIndicator(Transform indicatorParentTransform){
+        GameObject loadedIndicator = Instantiate(indicator,indicatorParentTransform.position,Quaternion.identity,indicatorParentTransform);
+        loadedIndicator.GetComponent<Indicator>().ScaleIndicator(spellType,range,radius);
+        Debug.Log("a");
+        return loadedIndicator.GetComponent<Indicator>();
+    }
 }
 
 public enum SpellType{

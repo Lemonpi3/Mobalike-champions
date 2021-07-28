@@ -7,13 +7,16 @@ public class CharecterBase : MonoBehaviour
 {
     public string characterName = "DefaultCharecter";
     public Transform UI;
+    public Transform indicatorsParent;
 
     public CharecterStats charecterStats;
     public PlayerUI playerUI;
     //Spell stuff
     public Spell[] spells;
     int selectedSpell;
+    
 
+    public Indicator[] indicatorsSpell = new Indicator[4];
     [HideInInspector] public Image[] iconShaded = new Image[4];
     [HideInInspector] public Image[] icon = new Image[4];
     [HideInInspector] public float[] coolDown = new float[4];
@@ -22,56 +25,13 @@ public class CharecterBase : MonoBehaviour
     [HideInInspector] public Ray ray;
     [HideInInspector] public RaycastHit hit;
     [HideInInspector] public Vector3 position;
-    [HideInInspector] public Image[] spellIndicator = new Image[4];
-    [HideInInspector] public Image[] spellRangeIndicator = new Image[4];
-
+    
     void Start()
     {
-        gameObject.name = characterName;
+        Debug.Log("Default charecter Ability 1");
         LoadAbilities();
-        playerUI.ScaleIndicators(spells);
-    }
-
-    private void Update()
-    {
+        gameObject.name = characterName;
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        position = TrackMousePos();
-        CoolDownTrack();
-
-        if(Input.GetKeyDown(KeyCode.Alpha1)){
-            Debug.Log(spellIndicator[0].enabled);
-            ShowSpellIndicator(0);
-            if(Input.GetMouseButtonDown(0)){
-                Ability1();
-                SpellCasted(0);
-            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.Alpha2)){
-            ShowSpellIndicator(1);
-            if(Input.GetMouseButtonDown(1)){
-                Ability2();
-                SpellCasted(1);
-            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.Alpha3)){
-            ShowSpellIndicator(2);
-            if(Input.GetMouseButtonDown(2)){
-                Ability3();
-                SpellCasted(2);
-            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.Alpha4)){
-            ShowSpellIndicator(3);
-            if(Input.GetMouseButtonDown(3)){
-                Ability4();
-                SpellCasted(3);
-            }
-        }
-        
-        RotateSkillshotIndicator(selectedSpell);
     }
 
     public virtual void Ability1()
@@ -154,41 +114,35 @@ public class CharecterBase : MonoBehaviour
     {
         for (int i = 0; i < spells.Length; i++)
         {
-            if (i != index && spellIndicator[i] != null)
+            if (i != index && indicatorsSpell[i] != null)
             {
-                spellIndicator[i].enabled = false;
-
-                if(spellRangeIndicator[i] != null){
-                    spellRangeIndicator[i].enabled = false;
-                }
+                indicatorsSpell[i].gameObject.SetActive(false);
             }
         }
     }
 
     void DisableIndicator(int index)
     {
-        spellIndicator[index].enabled = false;
-        spellRangeIndicator[index].enabled = false;
+        indicatorsSpell[index].gameObject.SetActive(false);
     }
 
     void LoadAbilities()
     {
         playerUI.LoadCharecterIcons(spells);
-
+            
+        
         for (int i = 0; i < spells.Length; i++)
         {
-            Debug.Log("loaded" + i);
+            Debug.Log("indicator array:"+ indicatorsSpell.Length +"item" + i);
+            indicatorsSpell[i] = spells[i].LoadIndicator(indicatorsParent);
             coolDown[i] = spells[i].coolDown;
-            maxRange[i] = spells[i].range;
-            spellIndicator[i] = playerUI.abilityIndicators[i];
-            spellRangeIndicator[i] = playerUI.abilityRangeIndicators[i];
             icon[i] = playerUI.spellUI.abilityIconsFull[i];
             iconShaded[i] = playerUI.spellUI.abilityIconsShaded[i];
+            Debug.Log("loaded:" + i );
+
         }
         Debug.Log("Loaded Abilities!");
     }
-
-    
 
     public Vector3 TrackMousePos(){
         if(Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Ground")))
@@ -196,14 +150,14 @@ public class CharecterBase : MonoBehaviour
             Vector3 pos = new Vector3(hit.point.x, hit.point.y, hit.point.z);
             return pos;
         }
-        else return position;
+        else return Vector3.zero;
     }
 
     public void ShowSpellIndicator(int abilityIndex){
         if (isCoolDown[abilityIndex] == false && charecterStats.manaCurrent >= spells[abilityIndex].manaCost)
         {
             selectedSpell = abilityIndex;
-            spellIndicator[abilityIndex].enabled = true;
+            indicatorsSpell[abilityIndex].gameObject.SetActive(true);
             DisableOtherIndicators(abilityIndex);
         }
     }
@@ -219,12 +173,13 @@ public class CharecterBase : MonoBehaviour
         Debug.Log("casted"+ spells[abilityIndex].name);
     }
 
-    public void RotateSkillshotIndicator(int abilityIndex){
-        
-        if(spellIndicator[abilityIndex].enabled==true){
-            Quaternion transRot = Quaternion.LookRotation(position - transform.position + new Vector3(0.0001f,0.0001f,0.0001f));
-            transRot.eulerAngles = new Vector3(0, 0, transRot.eulerAngles.z);
-            spellIndicator[abilityIndex].rectTransform.rotation = Quaternion.Lerp(transRot, spellIndicator[abilityIndex].rectTransform.rotation, 0f);
+    /// <summary>
+    /// Base functions that have to be on Update function of the charecter
+    /// </summary>
+    public void UpdateFunctions(){
+        if(Input.GetMouseButtonDown(0)|| Input.GetMouseButtonDown(1) || Input.GetKeyUp(KeyCode.Alpha1)||Input.GetKeyUp(KeyCode.Alpha2)||Input.GetKeyUp(KeyCode.Alpha3)||Input.GetKeyUp(KeyCode.Alpha4)){
+            DisableOtherIndicators(9);
         }
+        CoolDownTrack();
     }
 }

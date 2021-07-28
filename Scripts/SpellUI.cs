@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SpellUI : MonoBehaviour
 {
-    public Image[] abilityIconsFull = new Image[4];
-    public Image[] abilityIconsShaded = new Image[4];
+    public Image[] abilityIconsFull;
+    public Image[] abilityIconsShaded;
     public Image passiveIcon;
 }
