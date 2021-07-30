@@ -69,7 +69,7 @@ public class CharecterAI : MonoBehaviour
                     aiState = PlayerAIstate.Interacting;
                 }
 
-                if (hit.collider.gameObject.layer != LayerMask.NameToLayer(charecterStats.team) && hit.collider.tag != "Friendly" && hit.collider.tag != "Ground")
+                if (hit.collider.gameObject.layer != LayerMask.NameToLayer(charecterStats.team) && hit.collider.gameObject.layer != LayerMask.NameToLayer("Friendly") && hit.collider.tag != "Ground")
                 {
                     target = hit.collider.transform;
                     aiState = PlayerAIstate.Attacking;
@@ -78,11 +78,17 @@ public class CharecterAI : MonoBehaviour
             }
         }
 
+        AIStateMachine();
+    }
+
+
+    public void AIStateMachine(){
         switch (aiState)    
         {
             case PlayerAIstate.Idle:
                 break;
             case PlayerAIstate.Moveing:
+                agent.isStopped = false;
                 if(agent.remainingDistance <= 0)
                 {
                     aiState = PlayerAIstate.Idle;
@@ -109,9 +115,10 @@ public class CharecterAI : MonoBehaviour
                     Move(target.position);
                     FaceTarget();
                     
-                    if (DistanceToTarget(target.position) <= agent.stoppingDistance)
+                    if (DistanceToTarget(target.position) <= 2)
                     {
                         Debug.Log("Interacted with: "+ target.gameObject.name);
+                        agent.isStopped = true;
                         aiState = PlayerAIstate.Idle;
                     }
                 }
@@ -166,14 +173,13 @@ public class CharecterAI : MonoBehaviour
 
     private void MeleeAtack(CharecterStats targetStats)
     {
-        float nextAttack = Time.time + charecterStats.attackSpeed;
+        nextAttack = Time.time + charecterStats.attackSpeed;
         targetStats.TakeDamage((int)charecterStats.attackDamage);
     }
 
     private void RangedAttack(CharecterStats targetStats)
     {
         nextAttack = Time.time + charecterStats.attackSpeed;
-        float rand = Random.Range(0, 100f);//critical hit
         GameObject proyectile = Instantiate(charecterStats.autoAttackproyectile, transform.position, Quaternion.identity);
     }
 }

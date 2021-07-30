@@ -37,21 +37,25 @@ public class CharecterBase : MonoBehaviour
 
     public virtual void Ability1()
     {
+        SpellCasted(0);
         Debug.Log("Default charecter Ability 1");
     }
 
     public virtual void Ability2()
     { 
+        SpellCasted(1);
         Debug.Log("Default charecter Ability 2");
     }
 
     public virtual void Ability3()
     {
+        SpellCasted(2);
         Debug.Log("Default charecter Ability 3");
     }
 
     public virtual void Ability4()
     {
+        SpellCasted(3);
         Debug.Log("Default charecter Ability 4");
     }
 
@@ -162,6 +166,11 @@ public class CharecterBase : MonoBehaviour
     /// Disables active Indicator , discounts mana cost and puts spell on cooldown
     /// </summary>
     public void SpellCasted(int abilityIndex){
+        if(charecterStats.manaCurrent < spells[abilityIndex].manaCost){
+            Debug.Log("Not enought mana");
+            DisableIndicator(abilityIndex);
+            return;
+        }
         charecterStats.manaCurrent -= spells[abilityIndex].manaCost;
         isCoolDown[abilityIndex] = true;
         icon[abilityIndex].fillAmount = 1;

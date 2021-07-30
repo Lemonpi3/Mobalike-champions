@@ -38,7 +38,6 @@ public class Spell : ScriptableObject {
     public Indicator LoadIndicator(Transform indicatorParentTransform){
         GameObject loadedIndicator = Instantiate(indicator,indicatorParentTransform.position,Quaternion.identity,indicatorParentTransform);
         loadedIndicator.GetComponent<Indicator>().ScaleIndicator(spellType,range,radius);
-        Debug.Log("a");
         return loadedIndicator.GetComponent<Indicator>();
     }
 }

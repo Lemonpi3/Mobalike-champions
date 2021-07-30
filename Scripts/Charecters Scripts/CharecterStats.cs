@@ -15,7 +15,7 @@ public class CharecterStats : MonoBehaviour
     public float manaRegen = 5;
 
     public TypeOfAttack typeOfAttack;
-    public float attackRange = 3; // ~3 melee , 4+ ranged
+    public float attackRange = 3; // ~2 melee , 3+ ranged
     public GameObject autoAttackproyectile;
 
     public float attackDamage = 5;
