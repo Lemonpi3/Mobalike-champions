@@ -15,8 +15,9 @@ public class TestCharecter : CharecterBase
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha2)){
+        if(Input.GetKey(KeyCode.Alpha2)){
             ShowSpellIndicator(1);
+            indicatorsSpell[1].MoveIndicator();
             if(Input.GetMouseButtonDown(1)){
                 Ability2();
             }

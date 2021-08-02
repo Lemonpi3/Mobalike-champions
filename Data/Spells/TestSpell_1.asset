@@ -18,7 +18,7 @@ MonoBehaviour:
   spellRankCurrent: 0
   spellRankMax: 4
   manaCost: 1
-  range: 10
+  range: 5
   radius: 1
   damageBase: 0
   attackScaling: 1

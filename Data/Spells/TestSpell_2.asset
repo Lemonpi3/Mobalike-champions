@@ -18,8 +18,8 @@ MonoBehaviour:
   spellRankCurrent: 0
   spellRankMax: 4
   manaCost: 1
-  range: 10
-  radius: 1
+  range: 20
+  radius: 3
   damageBase: 0
   attackScaling: 1
   spellPowerScaling: 1
@@ -29,6 +29,5 @@ MonoBehaviour:
   - 100
   - 150
   icon: {fileID: 21300000, guid: 1039231d1a9055045bf813c0fb398de1, type: 3}
-  spellIndicator: {fileID: 0}
-  rangeIndicator: {fileID: 0}
-  proyectile: {fileID: 0}
+  indicator: {fileID: 3069539502995328450, guid: b04e19518bec69247b108208dbb9c812, type: 3}
+  proyectile: {fileID: 2468547926643074773, guid: a6c501755f9594f46b5f8234ada6e063, type: 3}

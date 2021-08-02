@@ -34,8 +34,11 @@ public class CharecterStats : MonoBehaviour
     public float attackDamageOnLevelUp = 1;
     public float spellPowerOnLevelUp = 10;
     
+    PlayerUI playerUI;
+
     void Start(){
         gameObject.layer = LayerMask.NameToLayer(team);
+        playerUI = GetComponent<PlayerUI>();
         UpdateStats();
     }
 
@@ -56,6 +59,18 @@ public class CharecterStats : MonoBehaviour
         manaMax = manaMax + (manaOnLevelUp * levelCurrent);
         attackDamage = attackDamage + (attackDamageOnLevelUp * levelCurrent);
         spellPower = spellPower + (spellPowerOnLevelUp * levelCurrent);
+
+        if(playerUI !=null){
+
+        float[] statsUI = new float[5];
+        statsUI.SetValue(attackDamage,0);    
+        statsUI.SetValue(attackSpeed,1);
+        statsUI.SetValue(attackRange,2);
+        statsUI.SetValue(spellPower,3);
+        statsUI.SetValue(moveSpeed,4);
+
+        playerUI.UpdateStats(statsUI); 
+        }   
     }
 
      public void TakeDamage(int amount, string attacker = null){

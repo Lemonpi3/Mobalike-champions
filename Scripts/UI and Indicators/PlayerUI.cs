@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class PlayerUI : MonoBehaviour
 {
     public SpellUI spellUI;
-
+    public StatsUI statsUI;
 
     /// <summary>
     /// Loads Icons and Indicators
@@ -16,6 +16,13 @@ public class PlayerUI : MonoBehaviour
             }
             spellUI.abilityIconsFull[i].sprite = spells[i].icon;
             spellUI.abilityIconsShaded[i].sprite = spells[i].icon;
+        }
+    }
+
+    public void UpdateStats(float[] statAmounts){
+        for (int i = 0; i < statAmounts.Length; i++)
+        {
+            statsUI.UpdateStatsUI(statAmounts[i],i);
         }
     }
 }
