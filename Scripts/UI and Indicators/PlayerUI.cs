@@ -6,6 +6,24 @@ public class PlayerUI : MonoBehaviour
     public SpellUI spellUI;
     public StatsUI statsUI;
 
+    
+    public Slider manabarUI;
+    public Slider healthBarUI;
+    public Slider xpBarUI;
+
+    public GameObject onCharStatusBars;
+    public Transform onCharUIparent;
+    StatusBars statusBars;
+
+    private void Start() {
+        GameObject statusBarGO = Instantiate<GameObject>(onCharStatusBars,onCharUIparent.position,Quaternion.identity,onCharUIparent);
+        statusBars = statusBarGO.GetComponent<StatusBars>();
+        statusBars.stats = GetComponent<CharecterStats>();
+        statusBars.UIhealthBar = healthBarUI;
+        statusBars.UImanaBar = manabarUI;
+        statusBars.UIXPBar = xpBarUI;
+    }
+
     /// <summary>
     /// Loads Icons and Indicators
     /// </summary>
@@ -24,5 +42,13 @@ public class PlayerUI : MonoBehaviour
         {
             statsUI.UpdateStatsUI(statAmounts[i],i);
         }
+    }
+
+    public void UpdateStatusBars(){
+        statusBars.UpdateStatus();
+    }
+
+    public void UpdateXPUI(){
+        statusBars.UpdateXP();
     }
 }

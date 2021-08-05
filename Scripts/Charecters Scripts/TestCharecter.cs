@@ -24,6 +24,7 @@ public class TestCharecter : CharecterBase
         }
 
         if(Input.GetKeyDown(KeyCode.Alpha3)){
+            charecterStats.GetXp(10);
             ShowSpellIndicator(2);
             if(Input.GetMouseButtonDown(2)){
                 Ability3();
