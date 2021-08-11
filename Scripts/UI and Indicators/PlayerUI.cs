@@ -13,6 +13,7 @@ public class PlayerUI : MonoBehaviour
 
     public GameObject onCharStatusBars;
     public Transform onCharUIparent;
+
     StatusBars statusBars;
 
     private void Start() {
@@ -34,6 +35,7 @@ public class PlayerUI : MonoBehaviour
             }
             spellUI.abilityIconsFull[i].sprite = spells[i].icon;
             spellUI.abilityIconsShaded[i].sprite = spells[i].icon;
+            UpdateSpellsDescriptions(spells);
         }
     }
 
@@ -50,5 +52,14 @@ public class PlayerUI : MonoBehaviour
 
     public void UpdateXPUI(){
         statusBars.UpdateXP();
+    }
+
+    public void UpdateSpellsDescriptions(Spell[] spells){
+
+        CharecterStats stats = GetComponent<CharecterStats>();
+        for (int i = 0; i < spells.Length; i++)
+        {
+            spellUI.description[i].text = spells[i].GetDescription(stats);
+        }
     }
 }

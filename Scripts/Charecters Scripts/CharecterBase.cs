@@ -187,4 +187,6 @@ public class CharecterBase : MonoBehaviour
         }
         CoolDownTrack();
     }
+
+    
 }

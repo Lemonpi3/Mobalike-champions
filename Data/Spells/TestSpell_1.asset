@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TestSpell_1
   m_EditorClassIdentifier: 
   spellName: Test 1
+  spellDescription: "New Spell \n2321323121\n3213213"
   spellType: 0
   coolDown: 4
   spellRankCurrent: 0

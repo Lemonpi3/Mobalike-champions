@@ -142,7 +142,7 @@ public class CharecterStats : MonoBehaviour
         playerUI.UpdateXPUI();
     }
 
-    public void LevelUp(float excessXp,float xpRate = 2)
+    public void LevelUp(float excessXp,float xpRate = 2) 
     {
         print("Level Up to: " + (levelCurrent + 1));
         xpCurrent = excessXp;

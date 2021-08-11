@@ -136,8 +136,6 @@ GameObject:
   - component: {fileID: 5236645740574066047}
   - component: {fileID: 5236645740574066035}
   - component: {fileID: 5236645740574066045}
-  - component: {fileID: 7722729353666811807}
-  - component: {fileID: 1491435714959419075}
   m_Layer: 0
   m_Name: DefaultCharecter
   m_TagString: Untagged
@@ -178,7 +176,7 @@ MonoBehaviour:
   charecterStats: {fileID: 5236645740574066046}
   spells:
   - {fileID: 11400000, guid: fd217db560188104d9d0f28dc9b4f2b2, type: 2}
-  - {fileID: 11400000, guid: fd217db560188104d9d0f28dc9b4f2b2, type: 2}
+  - {fileID: 11400000, guid: b6667cbc8482cf942995fe5877305e22, type: 2}
   - {fileID: 11400000, guid: fd217db560188104d9d0f28dc9b4f2b2, type: 2}
   - {fileID: 11400000, guid: fd217db560188104d9d0f28dc9b4f2b2, type: 2}
   playerUI: {fileID: 5236645740574066035}
@@ -236,7 +234,7 @@ MonoBehaviour:
   attackRange: 2
   autoAttackproyectile: {fileID: 0}
   attackDamage: 5
-  spellPower: 0
+  spellPower: 6
   moveSpeed: 10
   attackSpeed: 1
   levelCurrent: 0
@@ -274,6 +272,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spellUI: {fileID: 0}
+  statsUI: {fileID: 0}
+  manabarUI: {fileID: 0}
+  healthBarUI: {fileID: 0}
+  xpBarUI: {fileID: 0}
+  onCharStatusBars: {fileID: 4279850034068753778, guid: 641299600337a0c4badf7a7c5f2c8a8d, type: 3}
+  onCharUIparent: {fileID: 0}
 --- !u!195 &5236645740574066045
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -296,37 +300,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!95 &7722729353666811807
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5236645740574066040}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f3ece2e23517f6442bbb0be9799278f2, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1491435714959419075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5236645740574066040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36342e398dd034749bf7857c7a302069, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5236645741090310835
 PrefabInstance:
   m_ObjectHideFlags: 0

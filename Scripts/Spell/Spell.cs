@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "Spell", menuName = "Spells/New Spell", order = 0)]
-public class Spell : ScriptableObject {
+public class Spell : ScriptableObject{
 
     //Spell Stats
     public string spellName = "New Spell";
+    [TextArea(4,6)]
+    public string spellDescription = "Here goes the description";
     public SpellType spellType;
 
     public float coolDown = 4;
@@ -39,6 +41,10 @@ public class Spell : ScriptableObject {
         GameObject loadedIndicator = Instantiate(indicator,indicatorParentTransform.position,Quaternion.identity,indicatorParentTransform);
         loadedIndicator.GetComponent<Indicator>().ScaleIndicator(spellType,range,radius);
         return loadedIndicator.GetComponent<Indicator>();
+    }
+
+    public string GetDescription(CharecterStats casterStats){
+        return string.Format("{0}\nCooldown:{1}s\n<color=#00FAF8>{2} mana</color>\n<color=#FAC900>{3} that deals: {4}</color>",spellName,coolDown,manaCost,spellDescription,CalculateFinalDamage(casterStats));
     }
 }
 
